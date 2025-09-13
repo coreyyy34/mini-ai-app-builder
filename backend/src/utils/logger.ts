@@ -28,11 +28,11 @@ const format = winston.format.combine(
 
 const transports = [new winston.transports.Console()];
 
-const Logger = winston.createLogger({
+const logger = winston.createLogger({
 	level: "debug",
 	levels,
 	format,
 	transports,
 });
 
-export default Logger;
+export default logger;
