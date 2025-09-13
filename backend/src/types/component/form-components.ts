@@ -14,31 +14,23 @@ export type InputType =
 
 export interface FormComponent extends BaseComponent {
 	type: "form";
-	details: {
-		fields: FormFieldComponent[];
-	};
+	fields: FormFieldComponent[];
 }
 
 export interface FormFieldComponent extends BaseComponent {
 	type: "formField";
-	details: {
-		label: FormLabelComponent;
-		input: FormInputComponent;
-	};
+	label: FormLabelComponent;
+	input: FormInputComponent;
 }
 
 export interface FormLabelComponent extends BaseComponent {
 	type: "formLabel";
-	details: {
-		text: string;
-	};
+	text: string;
 }
 
 export interface FormInputComponent extends BaseComponent {
 	type: "formInput";
-	details: {
-		inputType: InputType;
-		placeholder?: string;
-		required?: boolean;
-	};
+	inputType: InputType;
+	placeholder?: string;
+	required?: boolean;
 }
