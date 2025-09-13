@@ -1,4 +1,4 @@
-import { BaseComponent } from "./component";
+import { BaseComponent, FormComponent, TableComponent } from "./component";
 
 export interface AppRequirements {
 	name: string;
@@ -9,5 +9,5 @@ export interface AppRequirements {
 }
 
 export interface AppComponents extends AppRequirements {
-	components: BaseComponent[];
+	components: (FormComponent | TableComponent)[];
 }
