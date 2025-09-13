@@ -1,14 +1,16 @@
-import express, { Request, Response, Application } from "express";
+import { connectDatabase, PORT } from "./config";
+import app from "./App";
 
-const app: Application = express();
-const port = process.env.PORT || 3000;
+const startServer = async () => {
+	try {
+		await connectDatabase();
+		app.listen(PORT, () => {
+			console.info(`Server running on port ${PORT}`);
+		});
+	} catch (error) {
+		console.error("Failed to start server", error);
+		process.exit(1);
+	}
+};
 
-app.use(express.json());
-
-app.get("/", (req: Request, res: Response) => {
-	res.send("Hello");
-});
-
-app.listen(port, () => {
-	console.log(`Server running on port ${port}`);
-});
+startServer();
