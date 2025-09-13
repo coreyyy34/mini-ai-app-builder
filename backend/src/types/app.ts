@@ -1,0 +1,13 @@
+import { BaseComponent } from "./component";
+
+export interface AppRequirements {
+	name: string;
+	description: string;
+	entities: string[];
+	roles: string[];
+	features: string[];
+}
+
+export interface AppComponents extends AppRequirements {
+	components: BaseComponent[];
+}
