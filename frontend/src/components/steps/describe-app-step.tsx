@@ -3,21 +3,27 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import StepCard from "../step-card";
 import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
+import { fetchRequirements } from "@/lib/api";
 
 const DescribeAppStep = () => {
 	const description = useAppBuilderStore((state) => state.description);
 	const loading = useAppBuilderStore((state) => state.loading);
 	const setDescription = useAppBuilderStore((state) => state.setDescription);
+	const setRequirements = useAppBuilderStore(
+		(state) => state.setRequirements
+	);
 	const setStep = useAppBuilderStore((state) => state.setStep);
 	const setLoading = useAppBuilderStore((state) => state.setLoading);
 	const reset = useAppBuilderStore((state) => state.reset);
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		setLoading(true);
-		setTimeout(() => {
-			setLoading(false);
-			setStep(AppBuilderStep.ExtractRequirements);
-		}, 1500);
+
+		const requriements = await fetchRequirements(description);
+		setRequirements(requriements);
+		setStep(AppBuilderStep.ExtractRequirements);
+
+		setLoading(false);
 	};
 
 	return (
