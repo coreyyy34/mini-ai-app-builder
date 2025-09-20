@@ -1,8 +1,11 @@
 import { Code } from "lucide-react";
 import StepCard from "../step-card";
 import { Button } from "../ui/button";
+import { useAppBuilderStore } from "@/stores/app-builder-store";
 
 const GenerateUiStep = () => {
+	const reset = useAppBuilderStore((state) => state.reset);
+
 	return (
 		<StepCard>
 			<StepCard.Header
@@ -12,7 +15,7 @@ const GenerateUiStep = () => {
 			/>
 			<StepCard.Content></StepCard.Content>
 			<StepCard.Footer>
-				<Button type="button" variant="outline">
+				<Button type="button" variant="outline" onClick={reset}>
 					Start Over
 				</Button>
 			</StepCard.Footer>

@@ -1,21 +1,18 @@
 import { Sparkles } from "lucide-react";
-import { useState, type FC } from "react";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import StepCard from "../step-card";
+import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
 
-interface DescribeAppStepProps {
-	onSubmit: () => void;
-}
-
-const DescribeAppStep: FC<DescribeAppStepProps> = ({ onSubmit }) => {
-	const [prompt, setPrompt] = useState("");
+const DescribeAppStep = () => {
+	const description = useAppBuilderStore((state) => state.description);
+	const setDescription = useAppBuilderStore((state) => state.setDescription);
+	const setStep = useAppBuilderStore((state) => state.setStep);
+	const reset = useAppBuilderStore((state) => state.reset);
 
 	const handleSubmit = () => {
-		onSubmit();
+		setStep(AppBuilderStep.GenerateUI);
 	};
-
-	const handleClear = () => setPrompt("");
 
 	return (
 		<StepCard>
@@ -26,13 +23,13 @@ const DescribeAppStep: FC<DescribeAppStepProps> = ({ onSubmit }) => {
 			/>
 			<StepCard.Content>
 				<Textarea
-					value={prompt}
-					onChange={(e) => setPrompt(e.target.value)}
+					value={description}
+					onChange={(e) => setDescription(e.target.value)}
 					placeholder="I want an app to manage student courses and grades..."
 				/>
 			</StepCard.Content>
 			<StepCard.Footer>
-				<Button variant="outline" onClick={handleClear}>
+				<Button variant="outline" onClick={reset}>
 					Clear
 				</Button>
 				<Button onClick={handleSubmit}>Extract Requirements</Button>

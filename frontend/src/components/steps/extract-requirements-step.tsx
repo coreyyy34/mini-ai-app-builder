@@ -1,20 +1,17 @@
 import { Code } from "lucide-react";
-import { type FC } from "react";
 import StepCard from "../step-card";
 import { Button } from "../ui/button";
+import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
 
-interface ExtractRequirementsStepProps {
-	onGoBack: () => void;
-	onSubmit: () => void;
-}
+const ExtractRequirementsStep = () => {
+	const setStep = useAppBuilderStore((state) => state.setStep);
 
-const ExtractRequirementsStep: FC<ExtractRequirementsStepProps> = ({
-	onGoBack,
-	onSubmit,
-}) => {
+	const handleBack = () => {
+		setStep(AppBuilderStep.DescribeApp);
+	};
+
 	const handleSubmit = () => {
-		console.log("clicked");
-		onSubmit();
+		setStep(AppBuilderStep.GenerateUI);
 	};
 
 	return (
@@ -26,7 +23,7 @@ const ExtractRequirementsStep: FC<ExtractRequirementsStepProps> = ({
 			/>
 			<StepCard.Content></StepCard.Content>
 			<StepCard.Footer>
-				<Button variant="outline" onClick={onGoBack}>
+				<Button variant="outline" onClick={handleBack}>
 					Edit Description
 				</Button>
 				<Button onClick={handleSubmit}>Generate UI</Button>
