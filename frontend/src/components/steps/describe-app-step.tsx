@@ -6,12 +6,18 @@ import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
 
 const DescribeAppStep = () => {
 	const description = useAppBuilderStore((state) => state.description);
+	const loading = useAppBuilderStore((state) => state.loading);
 	const setDescription = useAppBuilderStore((state) => state.setDescription);
 	const setStep = useAppBuilderStore((state) => state.setStep);
+	const setLoading = useAppBuilderStore((state) => state.setLoading);
 	const reset = useAppBuilderStore((state) => state.reset);
 
 	const handleSubmit = () => {
-		setStep(AppBuilderStep.GenerateUI);
+		setLoading(true);
+		setTimeout(() => {
+			setLoading(false);
+			setStep(AppBuilderStep.ExtractRequirements);
+		}, 1500);
 	};
 
 	return (

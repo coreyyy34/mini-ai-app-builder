@@ -14,9 +14,11 @@ interface AppBuilderState {
 	currentStep: number;
 	description: string;
 	requirements: ParsedRequirements | null;
+	loading: boolean;
 	setStep: (step: AppBuilderStep) => void;
 	setDescription: (description: string) => void;
 	setRequirements: (requirements: ParsedRequirements | null) => void;
+	setLoading: (loading: boolean) => void;
 	reset: () => void;
 }
 
@@ -24,10 +26,12 @@ export const useAppBuilderStore = create<AppBuilderState>()((set, get) => ({
 	currentStep: 0,
 	description: "",
 	requirements: null,
+	loading: false,
 
 	setStep: (currentStep) => set({ currentStep }),
 	setDescription: (description: string) => set({ description }),
 	setRequirements: (requirements: ParsedRequirements | null) =>
 		set({ requirements }),
+	setLoading: (loading: boolean) => set({ loading }),
 	reset: () => set({ currentStep: 0, description: "", requirements: null }),
 }));
