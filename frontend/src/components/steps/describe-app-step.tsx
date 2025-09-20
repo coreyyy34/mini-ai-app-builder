@@ -32,13 +32,16 @@ const DescribeAppStep = () => {
 					value={description}
 					onChange={(e) => setDescription(e.target.value)}
 					placeholder="I want an app to manage student courses and grades..."
+					disabled={loading}
 				/>
 			</StepCard.Content>
 			<StepCard.Footer>
-				<Button variant="outline" onClick={reset}>
+				<Button variant="outline" onClick={reset} disabled={loading}>
 					Clear
 				</Button>
-				<Button onClick={handleSubmit}>Extract Requirements</Button>
+				<Button onClick={handleSubmit} loading={loading}>
+					Extract Requirements
+				</Button>
 			</StepCard.Footer>
 		</StepCard>
 	);

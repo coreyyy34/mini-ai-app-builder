@@ -4,14 +4,20 @@ import { Button } from "../ui/button";
 import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
 
 const ExtractRequirementsStep = () => {
+	const loading = useAppBuilderStore((state) => state.loading);
 	const setStep = useAppBuilderStore((state) => state.setStep);
+	const setLoading = useAppBuilderStore((state) => state.setLoading);
 
 	const handleBack = () => {
 		setStep(AppBuilderStep.DescribeApp);
 	};
 
 	const handleSubmit = () => {
-		setStep(AppBuilderStep.GenerateUI);
+		setLoading(true);
+		setTimeout(() => {
+			setLoading(false);
+			setStep(AppBuilderStep.GenerateUI);
+		}, 1500);
 	};
 
 	return (
@@ -23,10 +29,16 @@ const ExtractRequirementsStep = () => {
 			/>
 			<StepCard.Content></StepCard.Content>
 			<StepCard.Footer>
-				<Button variant="outline" onClick={handleBack}>
+				<Button
+					variant="outline"
+					onClick={handleBack}
+					disabled={loading}
+				>
 					Edit Description
 				</Button>
-				<Button onClick={handleSubmit}>Generate UI</Button>
+				<Button onClick={handleSubmit} loading={loading}>
+					Generate UI
+				</Button>
 			</StepCard.Footer>
 		</StepCard>
 	);
