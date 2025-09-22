@@ -1,4 +1,5 @@
 import { AppRequirements } from "../types/app";
+import { AiService } from "./ai-service";
 
 const SYSTEM_PROMPT = `
 You are an expert software architect tasked with extracting a high-level requirements summary from a user-provided application description.
@@ -13,6 +14,7 @@ Based on the user's input, generate a valid JSON object with the following schem
 }
 
 - The output must be valid JSON.
+- Do not format the output as a code block. Return plain text only.
 - If the user prompt is vague, make minimal, logical assumptions.
 - If the prompt is invalid or too unclear to generate any requirements, return an object containing an "error" key with a relevant message.
 
@@ -38,13 +40,6 @@ AI Output:
 export const captureRequirementsFromPrompt = async (
 	prompt: string
 ): Promise<AppRequirements> => {
-	// mock data for now
-	return {
-		name: "Course Manager",
-		description:
-			"A tool to manage courses, enroll students, and view reports",
-		entities: ["Student", "Course", "Grade"],
-		roles: ["Teacher", "Student", "Admin"],
-		features: ["Add courses", "Enrol students", "View reports"],
-	};
+	const response = await AiService.generateContent(SYSTEM_PROMPT, prompt);
+	return response as AppRequirements;
 };

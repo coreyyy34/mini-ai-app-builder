@@ -3,12 +3,12 @@ import { GoogleGenAI } from "@google/genai";
 const genAI = new GoogleGenAI({});
 
 export class AiService {
-	async generateContent(systemPrompt: string, userPrompt: string) {
+	static async generateContent(systemPrompt: string, userPrompt: string) {
 		const response = await genAI.models.generateContent({
 			model: "gemini-2.5-flash",
 			contents: [
 				{
-					role: "system",
+					role: "model",
 					parts: [{ text: systemPrompt }],
 				},
 				{
@@ -18,6 +18,13 @@ export class AiService {
 			],
 		});
 
-		return response.text;
+		const text = response.text;
+		if (!text) {
+			return { error: "AI failed to extract requirements" };
+		}
+
+		console.log(text);
+
+		return JSON.parse(text);
 	}
 }
