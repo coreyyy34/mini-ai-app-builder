@@ -19,11 +19,14 @@ const DescribeAppStep = () => {
 	const handleSubmit = async () => {
 		setLoading(true);
 
-		const requriements = await fetchRequirements(description);
-		setRequirements(requriements);
-		setStep(AppBuilderStep.ExtractRequirements);
-
-		setLoading(false);
+		try {
+			const requirements = await fetchRequirements(description);
+			setRequirements(requirements);
+			setStep(AppBuilderStep.ExtractRequirements);
+		} catch (error) {
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	return (

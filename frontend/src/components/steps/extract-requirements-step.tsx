@@ -35,7 +35,7 @@ const ExtractRequirementsStep = () => {
 						<div>
 							<h3 className="font-semibold mb-2">App Name</h3>
 							<Badge className="text-lg px-3 py-1">
-								{requirements.appName}
+								{requirements.name}
 							</Badge>
 						</div>
 

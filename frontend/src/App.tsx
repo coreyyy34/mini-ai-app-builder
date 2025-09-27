@@ -3,14 +3,6 @@ import Sidebar from "./components/sidebar";
 import AppBuilder from "./components/app-builder";
 
 const App = () => {
-	const steps = [
-		{ value: 0, label: "Describe App" },
-		{ value: 1, label: "Extract Requirements" },
-		{ value: 2, label: "Generate UI" },
-	];
-	const currentStep = 0;
-	const totalSteps = steps.length;
-
 	return (
 		<div className="flex flex-col min-h-screen bg-background">
 			<Navigation />

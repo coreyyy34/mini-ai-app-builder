@@ -1,4 +1,4 @@
-import type { ParsedRequirements } from "@/types/types";
+import type { AppRequirements } from "@coreyyy34/mini-ai-app-builder-shared";
 import { create } from "zustand";
 
 export const AppBuilderStep = {
@@ -13,11 +13,11 @@ export type AppBuilderStep =
 interface AppBuilderState {
 	currentStep: number;
 	description: string;
-	requirements: ParsedRequirements | null;
+	requirements: AppRequirements | null;
 	loading: boolean;
 	setStep: (step: AppBuilderStep) => void;
 	setDescription: (description: string) => void;
-	setRequirements: (requirements: ParsedRequirements | null) => void;
+	setRequirements: (requirements: AppRequirements | null) => void;
 	setLoading: (loading: boolean) => void;
 	reset: () => void;
 }
@@ -30,7 +30,7 @@ export const useAppBuilderStore = create<AppBuilderState>()((set, get) => ({
 
 	setStep: (currentStep) => set({ currentStep }),
 	setDescription: (description: string) => set({ description }),
-	setRequirements: (requirements: ParsedRequirements | null) =>
+	setRequirements: (requirements: AppRequirements | null) =>
 		set({ requirements }),
 	setLoading: (loading: boolean) => set({ loading }),
 	reset: () => set({ currentStep: 0, description: "", requirements: null }),
