@@ -1,4 +1,7 @@
-import type { AppRequirements } from "@coreyyy34/mini-ai-app-builder-shared";
+import type {
+	AppComponents,
+	AppRequirements,
+} from "@coreyyy34/mini-ai-app-builder-shared";
 
 const API_URL = "http://localhost:3000";
 
@@ -24,11 +27,21 @@ export const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
 };
 
 export const fetchRequirements = async (
-	description: string
+	prompt: string
 ): Promise<AppRequirements> => {
 	const response = await apiFetch("/capture", {
 		method: "POST",
-		body: JSON.stringify({ prompt: description }),
+		body: JSON.stringify({ prompt }),
 	});
-	return response.requirements satisfies AppRequirements;
+	return response.requirements as AppRequirements;
+};
+
+export const fetchGeneratedUi = async (
+	requirements: AppRequirements
+): Promise<AppComponents> => {
+	const response = await apiFetch("/generate", {
+		method: "POST",
+		body: JSON.stringify({ requirements }),
+	});
+	return response as AppComponents;
 };

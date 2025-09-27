@@ -3,6 +3,7 @@ import StepCard from "../step-card";
 import { Button } from "../ui/button";
 import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
 import { Badge } from "../ui/badge";
+import { fetchGeneratedUi } from "@/lib/api";
 
 const ExtractRequirementsStep = () => {
 	const loading = useAppBuilderStore((state) => state.loading);
@@ -10,16 +11,22 @@ const ExtractRequirementsStep = () => {
 	const setLoading = useAppBuilderStore((state) => state.setLoading);
 	const requirements = useAppBuilderStore((state) => state.requirements);
 
+	if (!requirements) return null;
+
 	const handleBack = () => {
 		setStep(AppBuilderStep.DescribeApp);
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		setLoading(true);
-		setTimeout(() => {
+
+		try {
+			const generatedUi = await fetchGeneratedUi(requirements);
+			console.log(generatedUi);
+		} catch (error) {
+		} finally {
 			setLoading(false);
-			setStep(AppBuilderStep.GenerateUI);
-		}, 1500);
+		}
 	};
 
 	return (
