@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { generateUiFromRequirements } from "../service/generate-ui-service";
-import { AppRequirements } from "../types/app";
+import { AppRequirements } from "@coreyyy34/mini-ai-app-builder-shared";
 
 export const generateUiHandler = async (req: Request, res: Response) => {
 	const requirements = req.body.requirements as AppRequirements;

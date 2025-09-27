@@ -1,9 +1,5 @@
 import Navigation from "./components/navigation";
-import { Progress } from "./components/ui/progress";
 import Sidebar from "./components/sidebar";
-import DescribeAppStep from "./components/steps/describe-app-step";
-import ExtractRequirementsStep from "./components/steps/extract-requirements-step";
-import GenerateUiStep from "./components/steps/generate-ui-step";
 import AppBuilder from "./components/app-builder";
 
 const App = () => {
@@ -14,7 +10,6 @@ const App = () => {
 	];
 	const currentStep = 0;
 	const totalSteps = steps.length;
-	const stepProgress = (currentStep / (totalSteps - 1)) * 100;
 
 	return (
 		<div className="flex flex-col min-h-screen bg-background">

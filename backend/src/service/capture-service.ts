@@ -1,4 +1,4 @@
-import { AppRequirements } from "../types/app";
+import { AppRequirements } from "@coreyyy34/mini-ai-app-builder-shared";
 import { AiService } from "./ai-service";
 
 const SYSTEM_PROMPT = `
