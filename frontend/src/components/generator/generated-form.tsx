@@ -27,7 +27,12 @@ export const GeneratedForm: FC<GeneratedFormProps> = ({ form }) => {
 			<div className="flex flex-col gap-4">
 				{form.fields.map((field, idx) => (
 					<div key={idx} className="flex flex-col gap-2">
-						<Label>{field.label}</Label>
+						<div className="flex gap-1">
+							<Label>{field.label}</Label>
+							{field.required && (
+								<span className="text-destructive">*</span>
+							)}
+						</div>
 
 						{standardInputs.includes(field.inputType as any) && (
 							<Input

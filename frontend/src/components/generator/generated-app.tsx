@@ -1,7 +1,4 @@
-import type {
-	AppComponents,
-	TableComponent,
-} from "@coreyyy34/mini-ai-app-builder-shared";
+import type { AppComponents } from "@coreyyy34/mini-ai-app-builder-shared";
 import type { FC } from "react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";

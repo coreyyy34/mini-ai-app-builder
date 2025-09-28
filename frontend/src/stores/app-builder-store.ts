@@ -27,7 +27,7 @@ interface AppBuilderState {
 	reset: () => void;
 }
 
-export const useAppBuilderStore = create<AppBuilderState>()((set, get) => ({
+export const useAppBuilderStore = create<AppBuilderState>()((set) => ({
 	currentStep: 0,
 	description: "",
 	requirements: null,
