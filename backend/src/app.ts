@@ -2,7 +2,7 @@ import express, { Application } from "express";
 import cors from "cors";
 import rootRouter from "./routes";
 
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 const app: Application = express();
 
 app.use(
