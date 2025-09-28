@@ -21,7 +21,7 @@ The final output must be a single JSON object with the following top-level struc
 }
 
 **Component Structures**
-1. Form Component Structure - This component represents a data entry form for an entity.
+1. Form Component Structure - This component represents a data entry form for an entity and includes an array of actions (buttons)
 {
   "type": "form",
   "title": string, // A descriptive title for the form (e.g., "Create New User")
@@ -33,6 +33,13 @@ The final output must be a single JSON object with the following top-level struc
       "required": boolean // Indicates if the field is mandatory
     }
     // ... additional field objects
+  ],
+  "actions": [
+    {
+      "label": string, // The text displayed on the button (e.g., "Clear", "Create User")
+      "variant": "default" | "destructive" | "outline" | "secondary" // Visual style of the button
+    }
+    // ... additional button objects
   ]
 }
 

@@ -26,20 +26,20 @@ export const generateUiHandler = async (req: Request, res: Response) => {
 						{
 							label: "Description",
 							inputType: "text",
-							placeholder: "Describe the event",
+							placeholder: "Enter event description",
 							required: false,
 						},
 						{
-							label: "Start Date",
+							label: "Date",
 							inputType: "date",
-							placeholder: "Select start date",
+							placeholder: "Select event date",
 							required: true,
 						},
 						{
-							label: "End Date",
-							inputType: "date",
-							placeholder: "Select end date",
-							required: false,
+							label: "Time",
+							inputType: "time",
+							placeholder: "Select event time",
+							required: true,
 						},
 						{
 							label: "Location",
@@ -51,13 +51,23 @@ export const generateUiHandler = async (req: Request, res: Response) => {
 							label: "Capacity",
 							inputType: "number",
 							placeholder: "Enter maximum attendees",
-							required: true,
+							required: false,
+						},
+					],
+					actions: [
+						{
+							label: "Create Event",
+							variant: "default",
+						},
+						{
+							label: "Cancel",
+							variant: "destructive",
 						},
 					],
 				},
 				{
 					type: "table",
-					title: "Upcoming Events",
+					title: "Events",
 					columns: [
 						{
 							header: "Event Name",
@@ -65,51 +75,59 @@ export const generateUiHandler = async (req: Request, res: Response) => {
 							align: "left",
 						},
 						{
-							header: "Start Date",
-							accessor: "startDate",
-							align: "center",
-						},
-						{
-							header: "Location",
-							accessor: "location",
+							header: "Date",
+							accessor: "eventDate",
 							align: "left",
 						},
 						{
-							header: "Status",
-							accessor: "status",
+							header: "Time",
+							accessor: "eventTime",
+							align: "left",
+						},
+						{
+							header: "Location",
+							accessor: "eventLocation",
+							align: "left",
+						},
+						{
+							header: "Capacity",
+							accessor: "eventCapacity",
 							align: "center",
 						},
 					],
 					rows: [
 						{
 							cells: {
-								eventName: "Tech Conference 2024",
-								startDate: "2024-10-15",
-								location: "Metropolitan Convention Center",
-								status: "Scheduled",
+								eventName: "Annual Tech Conference",
+								eventDate: "2024-10-20",
+								eventTime: "09:00",
+								eventLocation: "Convention Center",
+								eventCapacity: "500",
 							},
 						},
 						{
 							cells: {
-								eventName: "Annual Music Festival",
-								startDate: "2024-08-20",
-								location: "City Park Amphitheater",
-								status: "Scheduled",
+								eventName: "Summer Music Festival",
+								eventDate: "2024-07-15",
+								eventTime: "14:00",
+								eventLocation: "City Park Amphitheater",
+								eventCapacity: "5000",
 							},
 						},
 						{
 							cells: {
-								eventName: "Art Exhibition Opening",
-								startDate: "2024-09-01",
-								location: "Downtown Gallery",
-								status: "Scheduled",
+								eventName: "Startup Pitch Night",
+								eventDate: "2024-09-10",
+								eventTime: "18:30",
+								eventLocation: "Innovation Hub",
+								eventCapacity: "150",
 							},
 						},
 					],
 				},
 				{
 					type: "form",
-					title: "Create New Organizer",
+					title: "New Organizer",
 					fields: [
 						{
 							label: "Organizer Name",
@@ -120,7 +138,7 @@ export const generateUiHandler = async (req: Request, res: Response) => {
 						{
 							label: "Email",
 							inputType: "email",
-							placeholder: "Enter organizer's email address",
+							placeholder: "Enter organizer's email",
 							required: true,
 						},
 						{
@@ -129,72 +147,70 @@ export const generateUiHandler = async (req: Request, res: Response) => {
 							placeholder: "Enter organizer's phone number",
 							required: false,
 						},
+					],
+					actions: [
 						{
-							label: "Company",
-							inputType: "text",
-							placeholder: "Enter organizer's company (optional)",
-							required: false,
+							label: "Add Organizer",
+							variant: "default",
+						},
+						{
+							label: "Clear",
+							variant: "outline",
 						},
 					],
 				},
 				{
 					type: "table",
-					title: "Event Organizers",
+					title: "Organizers",
 					columns: [
 						{
-							header: "Name",
+							header: "Organizer Name",
 							accessor: "organizerName",
 							align: "left",
 						},
 						{
 							header: "Email",
-							accessor: "email",
+							accessor: "organizerEmail",
 							align: "left",
 						},
 						{
-							header: "Company",
-							accessor: "company",
+							header: "Phone",
+							accessor: "organizerPhone",
 							align: "left",
 						},
 					],
 					rows: [
 						{
 							cells: {
-								organizerName: "Global Events Inc.",
-								email: "info@globalevents.com",
-								company: "Global Events Inc.",
+								organizerName: "Tech Events Co.",
+								organizerEmail: "contact@techevents.com",
+								organizerPhone: "555-123-4567",
 							},
 						},
 						{
 							cells: {
-								organizerName: "Artistic Productions",
-								email: "contact@artisticprod.net",
-								company: "Artistic Productions LLC",
+								organizerName: "Festival Planners Inc.",
+								organizerEmail: "info@festivals.com",
+								organizerPhone: "555-987-6543",
 							},
 						},
 						{
 							cells: {
-								organizerName: "Music Makers",
-								email: "support@musicmakers.org",
-								company: "Music Makers Collective",
+								organizerName: "Startup Network",
+								organizerEmail: "support@startupnetwork.org",
+								organizerPhone: "555-555-1212",
 							},
 						},
 					],
 				},
 				{
 					type: "form",
-					title: "Register New Attendee",
+					title: "Register Attendee",
 					fields: [
 						{
-							label: "First Name",
+							label: "Full Name",
 							inputType: "text",
-							placeholder: "Enter your first name",
-							required: true,
-						},
-						{
-							label: "Last Name",
-							inputType: "text",
-							placeholder: "Enter your last name",
+							placeholder: "Enter your full name",
 							required: true,
 						},
 						{
@@ -204,25 +220,46 @@ export const generateUiHandler = async (req: Request, res: Response) => {
 							required: true,
 						},
 						{
-							label: "Phone",
+							label: "Phone Number",
 							inputType: "tel",
 							placeholder: "Enter your phone number",
 							required: false,
+						},
+						{
+							label: "Event",
+							inputType: "text",
+							placeholder: "Select event to register for",
+							required: true,
+						},
+					],
+					actions: [
+						{
+							label: "Register",
+							variant: "default",
+						},
+						{
+							label: "Cancel",
+							variant: "destructive",
 						},
 					],
 				},
 				{
 					type: "table",
-					title: "Registered Attendees",
+					title: "Attendees",
 					columns: [
 						{
 							header: "Full Name",
-							accessor: "fullName",
+							accessor: "attendeeName",
 							align: "left",
 						},
 						{
 							header: "Email",
-							accessor: "email",
+							accessor: "attendeeEmail",
+							align: "left",
+						},
+						{
+							header: "Phone",
+							accessor: "attendeePhone",
 							align: "left",
 						},
 						{
@@ -234,64 +271,37 @@ export const generateUiHandler = async (req: Request, res: Response) => {
 					rows: [
 						{
 							cells: {
-								fullName: "Alice Wonderland",
-								email: "alice.w@example.com",
-								registeredEvent: "Tech Conference 2024",
+								attendeeName: "Alice Smith",
+								attendeeEmail: "alice.smith@email.com",
+								attendeePhone: "555-111-2222",
+								registeredEvent: "Annual Tech Conference",
 							},
 						},
 						{
 							cells: {
-								fullName: "Bob The Builder",
-								email: "bob.b@example.com",
-								registeredEvent: "Annual Music Festival",
+								attendeeName: "Bob Johnson",
+								attendeeEmail: "bob.j@email.com",
+								attendeePhone: "555-333-4444",
+								registeredEvent: "Summer Music Festival",
 							},
 						},
 						{
 							cells: {
-								fullName: "Charlie Chaplin",
-								email: "charlie.c@example.com",
-								registeredEvent: "Art Exhibition Opening",
+								attendeeName: "Charlie Brown",
+								attendeeEmail: "charlie.b@email.com",
+								attendeePhone: "555-555-6666",
+								registeredEvent: "Startup Pitch Night",
 							},
-						},
-					],
-				},
-				{
-					type: "form",
-					title: "Create New Registration",
-					fields: [
-						{
-							label: "Event",
-							inputType: "text",
-							placeholder: "Select event to register for",
-							required: true,
-						},
-						{
-							label: "Attendee Name",
-							inputType: "text",
-							placeholder: "Enter attendee's name",
-							required: true,
-						},
-						{
-							label: "Registration Date",
-							inputType: "date",
-							placeholder: "Enter registration date",
-							required: true,
-						},
-						{
-							label: "Status",
-							inputType: "text",
-							placeholder: "e.g., Confirmed, Pending",
-							required: true,
 						},
 					],
 				},
 				{
 					type: "table",
-					title: "Event Registrations",
+					title: "Registrations",
 					columns: [
 						{
-							header: "Event",
-							accessor: "eventName",
+							header: "Registration ID",
+							accessor: "registrationId",
 							align: "left",
 						},
 						{
@@ -300,39 +310,39 @@ export const generateUiHandler = async (req: Request, res: Response) => {
 							align: "left",
 						},
 						{
-							header: "Registration Date",
-							accessor: "registrationDate",
-							align: "center",
+							header: "Event Name",
+							accessor: "eventName",
+							align: "left",
 						},
 						{
-							header: "Status",
-							accessor: "status",
-							align: "center",
+							header: "Registration Date",
+							accessor: "registrationDate",
+							align: "left",
 						},
 					],
 					rows: [
 						{
 							cells: {
-								eventName: "Tech Conference 2024",
-								attendeeName: "Alice Wonderland",
-								registrationDate: "2024-07-20",
-								status: "Confirmed",
+								registrationId: "REG001",
+								attendeeName: "Alice Smith",
+								eventName: "Annual Tech Conference",
+								registrationDate: "2024-09-15",
 							},
 						},
 						{
 							cells: {
-								eventName: "Annual Music Festival",
-								attendeeName: "Bob The Builder",
-								registrationDate: "2024-07-21",
-								status: "Confirmed",
+								registrationId: "REG002",
+								attendeeName: "Bob Johnson",
+								eventName: "Summer Music Festival",
+								registrationDate: "2024-07-10",
 							},
 						},
 						{
 							cells: {
-								eventName: "Tech Conference 2024",
-								attendeeName: "Diana Prince",
-								registrationDate: "2024-07-22",
-								status: "Pending",
+								registrationId: "REG003",
+								attendeeName: "Charlie Brown",
+								eventName: "Startup Pitch Night",
+								registrationDate: "2024-09-01",
 							},
 						},
 					],

@@ -3,6 +3,7 @@ import type { FC } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
+import { Button } from "../ui/button";
 
 interface GeneratedFormProps {
 	form: FormComponent;
@@ -22,21 +23,31 @@ const standardInputs = [
 
 export const GeneratedForm: FC<GeneratedFormProps> = ({ form }) => {
 	return (
-		<div className="flex flex-col gap-4">
-			{form.fields.map((field, idx) => (
-				<div key={idx} className="flex flex-col gap-2">
-					<Label>{field.label}</Label>
+		<div className="flex flex-col gap-6">
+			<div className="flex flex-col gap-4">
+				{form.fields.map((field, idx) => (
+					<div key={idx} className="flex flex-col gap-2">
+						<Label>{field.label}</Label>
 
-					{standardInputs.includes(field.inputType as any) && (
-						<Input
-							type={field.inputType}
-							placeholder={field.placeholder}
-						/>
-					)}
+						{standardInputs.includes(field.inputType as any) && (
+							<Input
+								type={field.inputType}
+								placeholder={field.placeholder}
+							/>
+						)}
 
-					{field.inputType === "checkbox" && <Checkbox />}
+						{field.inputType === "checkbox" && <Checkbox />}
+					</div>
+				))}
+
+				<div className="flex justify-center gap-4">
+					{form.actions.map((action, idx) => (
+						<Button key={idx} variant={action.variant}>
+							{action.label}
+						</Button>
+					))}
 				</div>
-			))}
+			</div>
 		</div>
 	);
 };

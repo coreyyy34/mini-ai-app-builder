@@ -1,4 +1,5 @@
 import { BaseComponent } from "./base-components";
+import { ButtonComponent } from "./button-components";
 
 export type InputType =
 	| "checkbox"
@@ -15,6 +16,7 @@ export type InputType =
 export interface FormComponent extends BaseComponent {
 	type: "form";
 	fields: FormFieldComponent[];
+	actions: ButtonComponent[];
 }
 
 export interface FormFieldComponent {
