@@ -17,20 +17,9 @@ export interface FormComponent extends BaseComponent {
 	fields: FormFieldComponent[];
 }
 
-export interface FormFieldComponent extends BaseComponent {
-	type: "formField";
-	label: FormLabelComponent;
-	input: FormInputComponent;
-}
-
-export interface FormLabelComponent extends BaseComponent {
-	type: "formLabel";
-	text: string;
-}
-
-export interface FormInputComponent extends BaseComponent {
-	type: "formInput";
+export interface FormFieldComponent {
+	label: string;
 	inputType: InputType;
-	placeholder?: string;
-	required?: boolean;
+	placeholder: string;
+	required: boolean;
 }

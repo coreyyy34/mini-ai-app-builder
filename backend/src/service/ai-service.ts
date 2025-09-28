@@ -5,7 +5,7 @@ const genAI = new GoogleGenAI({});
 export class AiService {
 	static async generateContent(systemPrompt: string, userPrompt: string) {
 		const response = await genAI.models.generateContent({
-			model: "gemini-2.5-flash",
+			model: "gemini-2.5-flash-lite",
 			contents: [
 				{
 					role: "model",

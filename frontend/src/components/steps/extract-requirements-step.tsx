@@ -10,6 +10,9 @@ const ExtractRequirementsStep = () => {
 	const setStep = useAppBuilderStore((state) => state.setStep);
 	const setLoading = useAppBuilderStore((state) => state.setLoading);
 	const requirements = useAppBuilderStore((state) => state.requirements);
+	const setGeneratedComponents = useAppBuilderStore(
+		(state) => state.setGeneratedComponents
+	);
 
 	if (!requirements) return null;
 
@@ -22,7 +25,8 @@ const ExtractRequirementsStep = () => {
 
 		try {
 			const generatedUi = await fetchGeneratedUi(requirements);
-			console.log(generatedUi);
+			setGeneratedComponents(generatedUi);
+			setStep(AppBuilderStep.GenerateUI);
 		} catch (error) {
 		} finally {
 			setLoading(false);

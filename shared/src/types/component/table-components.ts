@@ -9,18 +9,14 @@ export interface TableComponent extends BaseComponent {
 	rows: TableRowComponent[];
 }
 
-export interface TableColumnComponent extends BaseComponent {
-	type: "tableColumn";
+export interface TableColumnComponent {
 	header: string;
 	accessor: string;
 	align?: TableAlignment;
 }
 
-export interface TableRowComponent extends BaseComponent {
-	type: "tableRow";
-	cells: TableCellComponent[];
-}
-
-export interface TableCellComponent extends BaseComponent {
-	type: "tableCell";
+export interface TableRowComponent {
+	cells: {
+		[key: string]: string;
+	};
 }

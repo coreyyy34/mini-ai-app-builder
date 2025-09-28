@@ -2,8 +2,10 @@ import { Code } from "lucide-react";
 import StepCard from "../step-card";
 import { Button } from "../ui/button";
 import { useAppBuilderStore } from "@/stores/app-builder-store";
+import { GeneratedApp } from "../generator/generated-app";
 
 const GenerateUiStep = () => {
+	const appComponents = useAppBuilderStore((state) => state.appComponents);
 	const reset = useAppBuilderStore((state) => state.reset);
 
 	return (
@@ -13,7 +15,11 @@ const GenerateUiStep = () => {
 				icon={Code}
 				description="Preview of your app's interface based on the requirements"
 			/>
-			<StepCard.Content></StepCard.Content>
+			<StepCard.Content>
+				{appComponents && (
+					<GeneratedApp app={appComponents}></GeneratedApp>
+				)}
+			</StepCard.Content>
 			<StepCard.Footer>
 				<Button type="button" variant="outline" onClick={reset}>
 					Start Over
