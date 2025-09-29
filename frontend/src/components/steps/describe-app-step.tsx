@@ -4,6 +4,7 @@ import { Textarea } from "../ui/textarea";
 import StepCard from "../step-card";
 import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
 import { fetchRequirements } from "@/lib/api";
+import { useProjectsStore } from "@/stores/projects-store";
 
 const DescribeAppStep = () => {
 	const description = useAppBuilderStore((state) => state.description);
@@ -13,12 +14,14 @@ const DescribeAppStep = () => {
 	const setStep = useAppBuilderStore((state) => state.setStep);
 	const setLoading = useAppBuilderStore((state) => state.setLoading);
 	const reset = useAppBuilderStore((state) => state.reset);
+	const addProject = useProjectsStore((state) => state.addProject);
 
 	const handleSubmit = async () => {
 		setLoading(true);
 
 		try {
 			const project = await fetchRequirements(description);
+			addProject(project.specifications);
 			setProject(project);
 			setStep(AppBuilderStep.ExtractRequirements);
 		} catch (error) {

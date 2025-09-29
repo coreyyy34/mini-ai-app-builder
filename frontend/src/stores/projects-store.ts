@@ -13,7 +13,7 @@ export const useProjectsStore = create<ProjectsState>((set, get) => ({
 	projects: [],
 
 	addProject: (project: ProjectSummary) =>
-		set({ projects: [...get().projects, project] }),
+		set({ projects: [project, ...get().projects] }),
 	removeProject: (id) =>
 		set({ projects: get().projects.filter((p) => p.id !== id) }),
 	loadProjects: async () => {

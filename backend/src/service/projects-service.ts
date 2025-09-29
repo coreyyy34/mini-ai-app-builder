@@ -15,7 +15,9 @@ export class ProjectsService {
 				"specifications.name": 1,
 				"specifications.description": 1,
 			}
-		).lean();
+		)
+			.sort({ _id: -1 })
+			.lean();
 
 		return projects.map((p: any) => ({
 			id: p._id.toString(),
