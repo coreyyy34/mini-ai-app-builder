@@ -1,6 +1,15 @@
-import { History } from "lucide-react";
+import { useProjectsStore } from "@/stores/projects-store";
+import { History, Icon, Star } from "lucide-react";
+import { useEffect } from "react";
+import { Button } from "./ui/button";
 
 const Sidebar = () => {
+	const { projects, loadProjects } = useProjectsStore();
+
+	useEffect(() => {
+		loadProjects();
+	}, []);
+
 	return (
 		<div className="w-80 border-r border-border bg-card">
 			<div className="p-4 border-b">
@@ -12,9 +21,26 @@ const Sidebar = () => {
 				</div>
 			</div>
 
-			<div className="text-center text-muted-foreground text-sm py-8">
-				<History className="h-8 w-8 mx-auto mb-2 opacity-50" />
-				No projects yet
+			<div className="text-center text-muted-foreground text-sm py-4">
+				<div className="flex flex-col gap-4 px-4">
+					{projects.length == 0 ? (
+						<div>
+							<History className="h-8 w-8 mx-auto mb-2 opacity-50" />
+							No projects yet{" "}
+						</div>
+					) : (
+						projects.map((project) => (
+							<Button
+								key={project.id}
+								variant="outline"
+								className="justify-start"
+							>
+								<Star />
+								{project.name}
+							</Button>
+						))
+					)}
+				</div>
 			</div>
 		</div>
 	);

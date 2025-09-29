@@ -1,6 +1,7 @@
 import type {
 	AppComponents,
 	AppRequirements,
+	ProjectSummary,
 } from "@coreyyy34/mini-ai-app-builder-shared";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
@@ -44,4 +45,9 @@ export const fetchGeneratedUi = async (
 		body: JSON.stringify({ requirements }),
 	});
 	return response as AppComponents;
+};
+
+export const fetchProjectSummaries = async (): Promise<ProjectSummary[]> => {
+	const response = await apiFetch("/projects");
+	return response as ProjectSummary[];
 };
