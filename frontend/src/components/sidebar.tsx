@@ -3,7 +3,6 @@ import { History, Star } from "lucide-react";
 import { useEffect } from "react";
 import { Button } from "./ui/button";
 import { useAppBuilderStore } from "@/stores/app-builder-store";
-import { cn } from "@/lib/utils";
 
 const Sidebar = () => {
 	const { projects, loadProjects } = useProjectsStore();
