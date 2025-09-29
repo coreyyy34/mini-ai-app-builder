@@ -1,17 +1,20 @@
 import { BaseComponent } from "./base-components";
 import { ButtonComponent } from "./button-components";
 
-export type InputType =
-	| "checkbox"
-	| "color"
-	| "date"
-	| "email"
-	| "number"
-	| "password"
-	| "tel"
-	| "text"
-	| "time"
-	| "url";
+export const inputTypes = [
+	"checkbox",
+	"color",
+	"date",
+	"email",
+	"number",
+	"password",
+	"tel",
+	"text",
+	"time",
+	"url",
+] as const;
+
+export type InputType = (typeof inputTypes)[number];
 
 export interface FormComponent extends BaseComponent {
 	type: "form";

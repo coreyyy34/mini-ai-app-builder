@@ -3,6 +3,7 @@ import {
 	AppRequirements,
 } from "@coreyyy34/mini-ai-app-builder-shared";
 import { AiService } from "./ai-service";
+import { AppComponentsModel } from "../model/project";
 
 const SYSTEM_PROMPT = `
 You are an Expert UI Architect. Your task is to generate a mock UI structure in valid JSON format based on a set of application requirements provided in a separate input JSON object.
@@ -19,6 +20,9 @@ The final output must be a single JSON object with the following top-level struc
     // ... additional components for each entity
   ]
 }
+
+**Important**
+Return the JSON text without any surrounding characters, including backticks, as if you were echoing a file content directly. Failure to omit the backticks will invalidate the response for the downstream parser.
 
 **Component Structures**
 1. Form Component Structure - This component represents a data entry form for an entity and includes an array of actions (buttons)
@@ -70,7 +74,7 @@ The final output must be a single JSON object with the following top-level struc
 
 **Output Constraints**
 1. The entire output must be valid JSON.
-2. Do not use a code block (e.g., json ... ) to enclose the output. Return the plain JSON text only.
+2. Return the JSON text without any surrounding characters, including backticks, as if you were echoing a file content directly. Failure to omit the backticks will invalidate the response for the downstream parser.
 `;
 
 // const SYSTEM_PROMPT = `
@@ -170,10 +174,19 @@ export const generateUiFromRequirements = async (
 		SYSTEM_PROMPT,
 		JSON.stringify(requirements)
 	);
-	const components = response as AppComponents;
 
-	return {
+	const components = response as AppComponents;
+	const app = {
 		...requirements,
 		...components,
-	};
+	} as AppComponents;
+
+	try {
+		const model = new AppComponentsModel(app);
+		await model.save();
+	} catch (error) {
+		console.error("failed to save", error);
+	}
+
+	return app;
 };

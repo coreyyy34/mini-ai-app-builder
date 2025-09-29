@@ -18,9 +18,15 @@ export class AiService {
 			],
 		});
 
-		const text = response.text;
+		let text = response.text;
 		if (!text) {
 			return { error: "AI failed to extract requirements" };
+		}
+
+		// sometimes the AI will return JSON with backticks even when we say not to.
+		const lines = text.split("\n");
+		if (lines[0].startsWith("```")) {
+			text = lines.slice(1, lines.length - 1).join("\n");
 		}
 
 		console.log(text);
