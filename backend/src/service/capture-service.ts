@@ -41,5 +41,5 @@ export const captureRequirementsFromPrompt = async (
 	prompt: string
 ): Promise<AppRequirements> => {
 	const response = await AiService.generateContent(SYSTEM_PROMPT, prompt);
-	return response as AppRequirements;
+	return { prompt: prompt, ...response } as AppRequirements;
 };
