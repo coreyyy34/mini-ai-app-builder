@@ -11,9 +11,18 @@ const Navigation = () => {
 						<h2 className="text-xl font-bold">AppBuilder AI</h2>
 					</div>
 					<div className="flex items-center space-x-4">
-						<Button variant="ghost" size="icon">
-							<Github className="text-secondary" />
-						</Button>
+						<a
+							href="https://github.com/coreyyy34/mini-ai-app-builder"
+							target="_blank"
+						>
+							<Button
+								variant="ghost"
+								size="icon"
+								className="group"
+							>
+								<Github className="text-secondary group-hover:text-primary" />
+							</Button>
+						</a>
 					</div>
 				</div>
 			</div>

@@ -23,7 +23,6 @@ const Sidebar = () => {
 		setActiveProject(project);
 
 		// update the step depending on if the project has generated UI or not
-
 		setStep(
 			project.components && project.components.length > 0
 				? AppBuilderStep.GenerateUI
