@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { captureRequirementsFromPrompt } from "../service/capture-service";
+import { ProjectsService } from "../service/projects-service";
 
 export const captureRequirementsHandler = async (
 	req: Request,
@@ -9,7 +10,8 @@ export const captureRequirementsHandler = async (
 
 	try {
 		const requirements = await captureRequirementsFromPrompt(prompt);
-		res.status(200).json({ requirements });
+		const id = await ProjectsService.saveCapturedRequirements(requirements);
+		res.status(200).json({ id, requirements });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: "Internal server error" });

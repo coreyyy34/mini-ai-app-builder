@@ -6,7 +6,7 @@ You are an expert software architect tasked with extracting a high-level require
 Based on the user's input, generate a valid JSON object with the following schema:
 
 {
-  "name": string, // A short, descriptive name for the application.
+  "name": string, // A short, descriptive name for the application. 
   "description": string, // A brief overview of the application's purpose.
   "entities": string[], // The primary data models (e.g., User, Product, Order). Be concise.
   "roles": string[], // The types of users who will interact with the application (e.g., Admin, Customer).
