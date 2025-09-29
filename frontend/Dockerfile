@@ -1,7 +1,7 @@
 FROM node:24 AS build
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json ./
 COPY shared ./shared
 COPY frontend ./frontend
 
