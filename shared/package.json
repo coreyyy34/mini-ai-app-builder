@@ -1,6 +1,6 @@
 {
 	"name": "@coreyyy34/mini-ai-app-builder-shared",
-	"version": "1.0.16",
+	"version": "1.0.18",
 	"description": "Shared types for Mini AI App Builder",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
