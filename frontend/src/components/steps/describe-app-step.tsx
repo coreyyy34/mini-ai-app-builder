@@ -9,9 +9,7 @@ const DescribeAppStep = () => {
 	const description = useAppBuilderStore((state) => state.description);
 	const loading = useAppBuilderStore((state) => state.loading);
 	const setDescription = useAppBuilderStore((state) => state.setDescription);
-	const setRequirements = useAppBuilderStore(
-		(state) => state.setRequirements
-	);
+	const setProject = useAppBuilderStore((state) => state.setProject);
 	const setStep = useAppBuilderStore((state) => state.setStep);
 	const setLoading = useAppBuilderStore((state) => state.setLoading);
 	const reset = useAppBuilderStore((state) => state.reset);
@@ -20,8 +18,8 @@ const DescribeAppStep = () => {
 		setLoading(true);
 
 		try {
-			const requirements = await fetchRequirements(description);
-			setRequirements(requirements);
+			const project = await fetchRequirements(description);
+			setProject(project);
 			setStep(AppBuilderStep.ExtractRequirements);
 		} catch (error) {
 		} finally {

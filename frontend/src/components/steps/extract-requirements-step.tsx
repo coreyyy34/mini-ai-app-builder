@@ -9,12 +9,10 @@ const ExtractRequirementsStep = () => {
 	const loading = useAppBuilderStore((state) => state.loading);
 	const setStep = useAppBuilderStore((state) => state.setStep);
 	const setLoading = useAppBuilderStore((state) => state.setLoading);
-	const requirements = useAppBuilderStore((state) => state.requirements);
-	const setGeneratedComponents = useAppBuilderStore(
-		(state) => state.setGeneratedComponents
-	);
+	const project = useAppBuilderStore((state) => state.project);
+	const setProject = useAppBuilderStore((state) => state.setProject);
 
-	if (!requirements) return null;
+	if (!project) return null;
 
 	const handleBack = () => {
 		setStep(AppBuilderStep.DescribeApp);
@@ -24,8 +22,9 @@ const ExtractRequirementsStep = () => {
 		setLoading(true);
 
 		try {
-			const generatedUi = await fetchGeneratedUi(requirements);
-			setGeneratedComponents(generatedUi);
+			const updatedProject = await fetchGeneratedUi(project.id);
+			setProject(updatedProject);
+			console.log(updatedProject);
 			setStep(AppBuilderStep.GenerateUI);
 		} catch (error) {
 		} finally {
@@ -41,55 +40,61 @@ const ExtractRequirementsStep = () => {
 				description="Here's what we understood from your description"
 			/>
 			<StepCard.Content>
-				{requirements && (
+				{project?.specifications && (
 					<div className="space-y-6">
 						<div>
 							<h3 className="font-semibold mb-2">App Name</h3>
 							<Badge className="text-lg px-3 py-1">
-								{requirements.name}
+								{project.specifications.name}
 							</Badge>
 						</div>
 
 						<div>
 							<h3 className="font-semibold mb-2">Entities</h3>
 							<div className="flex flex-wrap gap-2">
-								{requirements.entities.map((entity, index) => (
-									<Badge key={index} variant="outline">
-										{entity}
-									</Badge>
-								))}
+								{project.specifications.entities.map(
+									(entity, index) => (
+										<Badge key={index} variant="outline">
+											{entity}
+										</Badge>
+									)
+								)}
 							</div>
 						</div>
 
 						<div>
 							<h3 className="font-semibold mb-2">User Roles</h3>
 							<div className="flex flex-wrap gap-2">
-								{requirements.roles.map((role, index) => (
-									<Badge
-										key={index}
-										variant="outline"
-										className="bg-primary/10"
-									>
-										<Users className="mr-1 h-3 w-3" />
-										{role}
-									</Badge>
-								))}
+								{project.specifications.roles.map(
+									(role, index) => (
+										<Badge
+											key={index}
+											variant="outline"
+											className="bg-primary/10"
+										>
+											<Users className="mr-1 h-3 w-3" />
+											{role}
+										</Badge>
+									)
+								)}
 							</div>
 						</div>
 
 						<div>
 							<h3 className="font-semibold mb-2">Features</h3>
 							<div className="flex flex-wrap gap-2">
-								{requirements.features.map((feature, index) => (
-									<Badge
-										key={index}
-										variant="outline"
-										className="bg-accent/10"
-									>
-										<Settings className="mr-1 h-3 w-3" />
-										{feature}
-									</Badge>
-								))}
+								{project.specifications.features.map(
+									(feature, index) => (
+										<Badge
+											key={index}
+											variant="outline"
+											className="bg-accent/10"
+										>
+											<Settings className="mr-1 h-3 w-3" />
+											{feature}
+										</Badge>
+									)
+								)}
 							</div>
 						</div>
 					</div>

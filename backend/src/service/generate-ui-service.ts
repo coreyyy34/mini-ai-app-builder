@@ -1,9 +1,15 @@
-import {
-	AppComponents,
-	AppRequirements,
-} from "@coreyyy34/mini-ai-app-builder-shared";
 import { AiService } from "./ai-service";
 import { ProjectsModel } from "../model/project";
+import {
+	FormComponent,
+	GenerateUIRequest,
+	GenerateUIResponse,
+	Project,
+	ProjectId,
+	ProjectSpecifications,
+	TableComponent,
+} from "@coreyyy34/mini-ai-app-builder-shared";
+import { ProjectsService } from "./projects-service";
 
 const SYSTEM_PROMPT = `
 You are an Expert UI Architect. Your task is to generate a mock UI structure in valid JSON format based on a set of application requirements provided in a separate input JSON object.
@@ -78,25 +84,25 @@ Return the JSON text without any surrounding characters, including backticks, as
 `;
 
 export const generateUiFromRequirements = async (
-	requirements: AppRequirements
-): Promise<AppComponents> => {
+	id: ProjectId
+): Promise<Project> => {
+	const project = await ProjectsService.getProjectById(id);
+	if (project == null) throw Error("Invalid project id");
+
 	const response = await AiService.generateContent(
 		SYSTEM_PROMPT,
-		JSON.stringify(requirements)
+		JSON.stringify(project.specifications)
 	);
 
-	const components = response as AppComponents;
-	const app = {
-		...requirements,
-		...components,
-	} as AppComponents;
+	// response is { component: [ ... ] }
+	const { components } = response as { components: Project["components"] };
+	project.components = components;
 
 	try {
-		const model = new ProjectsModel(app);
-		await model.save();
+		ProjectsService.updateComponents(project.id, components);
 	} catch (error) {
 		console.error("failed to save", error);
 	}
 
-	return app;
+	return project;
 };

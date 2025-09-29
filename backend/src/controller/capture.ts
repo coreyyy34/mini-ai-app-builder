@@ -1,17 +1,16 @@
 import { Request, Response } from "express";
 import { captureRequirementsFromPrompt } from "../service/capture-service";
-import { ProjectsService } from "../service/projects-service";
+import { CaptureSpecificationsRequest } from "@coreyyy34/mini-ai-app-builder-shared";
 
 export const captureRequirementsHandler = async (
 	req: Request,
 	res: Response
 ) => {
-	const prompt = req.body.prompt;
+	const { prompt } = req.body as CaptureSpecificationsRequest;
 
 	try {
-		const requirements = await captureRequirementsFromPrompt(prompt);
-		const id = await ProjectsService.saveCapturedRequirements(requirements);
-		res.status(200).json({ id, requirements });
+		const project = await captureRequirementsFromPrompt(prompt);
+		res.status(200).json({ project });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: "Internal server error" });

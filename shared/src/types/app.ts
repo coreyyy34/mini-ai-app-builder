@@ -1,13 +1,22 @@
 import { FormComponent, TableComponent } from "./component";
 
-export interface AppRequirements {
+export type ProjectId = string;
+
+export interface ProjectSummary {
+	id: ProjectId;
 	name: string;
 	description: string;
+}
+
+export interface ProjectSpecifications extends ProjectSummary {
+	prompt: string;
 	entities: string[];
 	roles: string[];
 	features: string[];
 }
 
-export interface AppComponents extends AppRequirements {
-	components: (FormComponent | TableComponent)[];
+export interface Project {
+	id: string;
+	specifications: ProjectSpecifications;
+	components?: (FormComponent | TableComponent)[];
 }

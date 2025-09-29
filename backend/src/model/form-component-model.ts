@@ -1,10 +1,5 @@
-import {
-	AppComponents,
-	inputTypes,
-} from "@coreyyy34/mini-ai-app-builder-shared";
-import { Document, Schema } from "mongoose";
-
-export interface IProject extends AppComponents, Document {}
+import { inputTypes } from "@coreyyy34/mini-ai-app-builder-shared";
+import { Schema } from "mongoose";
 
 const formFieldComponentSchema = new Schema(
 	{

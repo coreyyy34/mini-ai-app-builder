@@ -1,13 +1,16 @@
 import { Request, Response } from "express";
 import { generateUiFromRequirements } from "../service/generate-ui-service";
-import { AppRequirements } from "@coreyyy34/mini-ai-app-builder-shared";
+import {
+	CaptureSpecificationsRequest,
+	ProjectId,
+} from "@coreyyy34/mini-ai-app-builder-shared";
 
 export const generateUiHandler = async (req: Request, res: Response) => {
-	const requirements = req.body.requirements as AppRequirements;
+	const { id } = req.body as CaptureSpecificationsRequest;
 
 	try {
-		const appComponents = await generateUiFromRequirements(requirements);
-		res.status(200).json(appComponents);
+		const project = await generateUiFromRequirements(id as ProjectId);
+		res.status(200).json({ project });
 	} catch (error) {
 		res.status(500).json({ error: "Internal server error" });
 	}

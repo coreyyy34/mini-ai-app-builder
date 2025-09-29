@@ -1,6 +1,6 @@
 import type {
-	AppComponents,
-	AppRequirements,
+	Project,
+	ProjectId,
 	ProjectSummary,
 } from "@coreyyy34/mini-ai-app-builder-shared";
 
@@ -27,24 +27,22 @@ export const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
 	return await response.json();
 };
 
-export const fetchRequirements = async (
-	prompt: string
-): Promise<AppRequirements> => {
+export const fetchRequirements = async (prompt: string): Promise<Project> => {
 	const response = await apiFetch("/capture", {
 		method: "POST",
 		body: JSON.stringify({ prompt }),
 	});
-	return response.requirements as AppRequirements;
+	const { project } = response;
+	return project;
 };
 
-export const fetchGeneratedUi = async (
-	requirements: AppRequirements
-): Promise<AppComponents> => {
+export const fetchGeneratedUi = async (id: ProjectId): Promise<Project> => {
 	const response = await apiFetch("/generate", {
 		method: "POST",
-		body: JSON.stringify({ requirements }),
+		body: JSON.stringify({ id }),
 	});
-	return response as AppComponents;
+	const { project } = response;
+	return project;
 };
 
 export const fetchProjectSummaries = async (): Promise<ProjectSummary[]> => {

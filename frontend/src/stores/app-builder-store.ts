@@ -1,7 +1,4 @@
-import type {
-	AppComponents,
-	AppRequirements,
-} from "@coreyyy34/mini-ai-app-builder-shared";
+import type { Project } from "@coreyyy34/mini-ai-app-builder-shared";
 import { create } from "zustand";
 
 export const AppBuilderStep = {
@@ -16,13 +13,11 @@ export type AppBuilderStep =
 interface AppBuilderState {
 	currentStep: number;
 	description: string;
-	requirements: AppRequirements | null;
-	appComponents: AppComponents | null;
+	project: Project | null;
 	loading: boolean;
 	setStep: (step: AppBuilderStep) => void;
 	setDescription: (description: string) => void;
-	setRequirements: (requirements: AppRequirements | null) => void;
-	setGeneratedComponents: (appComponents: AppComponents | null) => void;
+	setProject: (project: Project | null) => void;
 	setLoading: (loading: boolean) => void;
 	reset: () => void;
 }
@@ -30,16 +25,12 @@ interface AppBuilderState {
 export const useAppBuilderStore = create<AppBuilderState>()((set) => ({
 	currentStep: 0,
 	description: "",
-	requirements: null,
-	appComponents: null,
+	project: null,
 	loading: false,
 
 	setStep: (currentStep) => set({ currentStep }),
 	setDescription: (description: string) => set({ description }),
-	setRequirements: (requirements: AppRequirements | null) =>
-		set({ requirements }),
-	setGeneratedComponents: (appComponents: AppComponents | null) =>
-		set({ appComponents }),
+	setProject: (project: Project | null) => set({ project }),
 	setLoading: (loading: boolean) => set({ loading }),
-	reset: () => set({ currentStep: 0, description: "", requirements: null }),
+	reset: () => set({ currentStep: 0, description: "", project: null }),
 }));

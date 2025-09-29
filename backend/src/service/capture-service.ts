@@ -1,5 +1,9 @@
-import { AppRequirements } from "@coreyyy34/mini-ai-app-builder-shared";
+import {
+	Project,
+	ProjectSpecifications,
+} from "@coreyyy34/mini-ai-app-builder-shared";
 import { AiService } from "./ai-service";
+import { ProjectsService } from "./projects-service";
 
 const SYSTEM_PROMPT = `
 You are an expert software architect tasked with extracting a high-level requirements summary from a user-provided application description.
@@ -39,8 +43,13 @@ AI Output:
 
 export const captureRequirementsFromPrompt = async (
 	prompt: string
-): Promise<AppRequirements> => {
+): Promise<Project> => {
 	const response = await AiService.generateContent(SYSTEM_PROMPT, prompt);
-	const requirements = { prompt: prompt, ...response } as AppRequirements;
-	return requirements;
+	const specifications = {
+		prompt: prompt,
+		...response,
+	} as ProjectSpecifications;
+
+	const id = await ProjectsService.saveCapturedRequirements(specifications);
+	return { id, specifications };
 };
