@@ -9,3 +9,13 @@ export const projectsHandler = async (req: Request, res: Response) => {
 		res.status(500).json({ error: "Internal server error" });
 	}
 };
+
+export const projectByIdHandler = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const project = await ProjectsService.getProjectById(id);
+		res.status(200).json(project);
+	} catch (error: any) {
+		res.status(500).json({ error: "Internal server error" });
+	}
+};

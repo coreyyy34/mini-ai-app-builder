@@ -2,15 +2,34 @@ import { useProjectsStore } from "@/stores/projects-store";
 import { History, Star } from "lucide-react";
 import { useEffect } from "react";
 import { Button } from "./ui/button";
-import { useAppBuilderStore } from "@/stores/app-builder-store";
+import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
+import type { ProjectId } from "@coreyyy34/mini-ai-app-builder-shared";
+import { fetchProject } from "@/lib/api";
 
 const Sidebar = () => {
 	const { projects, loadProjects } = useProjectsStore();
 	const activeProject = useAppBuilderStore((state) => state.project);
+	const setActiveProject = useAppBuilderStore((state) => state.setProject);
+	const setStep = useAppBuilderStore((state) => state.setStep);
 
 	useEffect(() => {
 		loadProjects();
 	}, []);
+
+	const handleOpenProject = async (id: ProjectId) => {
+		if (id == activeProject?.id) return;
+
+		const project = await fetchProject(id);
+		setActiveProject(project);
+
+		// update the step depending on if the project has generated UI or not
+
+		setStep(
+			project.components && project.components.length > 0
+				? AppBuilderStep.GenerateUI
+				: AppBuilderStep.ExtractRequirements
+		);
+	};
 
 	return (
 		<div className="w-80 border-r border-border bg-card">
@@ -40,6 +59,7 @@ const Sidebar = () => {
 										: "outline"
 								}
 								className="justify-start"
+								onClick={() => handleOpenProject(project.id)}
 							>
 								<Star />
 								{project.name}

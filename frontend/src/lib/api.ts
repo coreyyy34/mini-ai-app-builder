@@ -49,3 +49,8 @@ export const fetchProjectSummaries = async (): Promise<ProjectSummary[]> => {
 	const response = await apiFetch("/projects");
 	return response as ProjectSummary[];
 };
+
+export const fetchProject = async (id: ProjectId): Promise<Project> => {
+	const response = await apiFetch(`/projects/${id}`);
+	return response as Project;
+};
