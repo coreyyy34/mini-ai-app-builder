@@ -21,7 +21,7 @@ const DescribeAppStep = () => {
 
 		try {
 			const project = await fetchRequirements(description);
-			addProject(project.specifications);
+			addProject({ ...project.specifications, id: project.id });
 			setProject(project);
 			setStep(AppBuilderStep.ExtractRequirements);
 		} catch (error) {

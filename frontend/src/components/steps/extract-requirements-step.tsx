@@ -37,7 +37,7 @@ const ExtractRequirementsStep = () => {
 			<StepCard.Header
 				title="Step 2: Extract Requirements"
 				icon={Code}
-				description="Here's what we understood from your description"
+				description={project?.specifications?.message}
 			/>
 			<StepCard.Content>
 				{project?.specifications && (

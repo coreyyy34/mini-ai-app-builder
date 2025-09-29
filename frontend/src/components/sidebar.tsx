@@ -2,9 +2,12 @@ import { useProjectsStore } from "@/stores/projects-store";
 import { History, Star } from "lucide-react";
 import { useEffect } from "react";
 import { Button } from "./ui/button";
+import { useAppBuilderStore } from "@/stores/app-builder-store";
+import { cn } from "@/lib/utils";
 
 const Sidebar = () => {
 	const { projects, loadProjects } = useProjectsStore();
+	const activeProject = useAppBuilderStore((state) => state.project);
 
 	useEffect(() => {
 		loadProjects();
@@ -32,7 +35,11 @@ const Sidebar = () => {
 						projects.map((project) => (
 							<Button
 								key={project.id}
-								variant="outline"
+								variant={
+									activeProject?.id == project.id
+										? "default"
+										: "outline"
+								}
 								className="justify-start"
 							>
 								<Star />

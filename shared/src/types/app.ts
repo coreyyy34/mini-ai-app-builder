@@ -13,6 +13,7 @@ export interface ProjectSpecifications extends ProjectSummary {
 	entities: string[];
 	roles: string[];
 	features: string[];
+	message: string;
 }
 
 export interface Project {
