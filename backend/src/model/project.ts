@@ -13,7 +13,7 @@ const baseComponentSchema = new Schema(
 baseComponentSchema.discriminator("form", formComponentSchema);
 baseComponentSchema.discriminator("table", tableComponentSchema);
 
-const appComponentsSchema = new Schema<ProjectDocument>(
+const projectsSchema = new Schema<ProjectDocument>(
 	{
 		name: { type: String, required: true },
 		description: { type: String, required: true },
@@ -25,7 +25,4 @@ const appComponentsSchema = new Schema<ProjectDocument>(
 	{ versionKey: false }
 );
 
-export const AppComponentsModel = model<ProjectDocument>(
-	"AppComponents",
-	appComponentsSchema
-);
+export const ProjectsModel = model<ProjectDocument>("projects", projectsSchema);

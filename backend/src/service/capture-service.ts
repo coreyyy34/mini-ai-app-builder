@@ -1,6 +1,5 @@
 import { AppRequirements } from "@coreyyy34/mini-ai-app-builder-shared";
 import { AiService } from "./ai-service";
-import { AppComponentsModel } from "../model/project";
 
 const SYSTEM_PROMPT = `
 You are an expert software architect tasked with extracting a high-level requirements summary from a user-provided application description.
