@@ -33,8 +33,10 @@ jobs:
                         git reset --hard origin/${{ github.ref_name }}
                       fi
 
-                      export BASE_URL="${{ secrets.BASE_URL }}"
-                      export GEMINI_API_KEY="${{ secrets.GEMINI_API_KEY }}"
+                      cat > .env << 'EOF'
+                      BASE_URL=${{ secrets.BASE_URL }}
+                      GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}
+                      EOF
 
                       docker compose down
                       docker compose up -d --build
