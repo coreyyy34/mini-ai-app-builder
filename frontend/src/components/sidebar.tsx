@@ -1,5 +1,5 @@
 import { useProjectsStore } from "@/stores/projects-store";
-import { History, Icon, Star } from "lucide-react";
+import { History, Star } from "lucide-react";
 import { useEffect } from "react";
 import { Button } from "./ui/button";
 

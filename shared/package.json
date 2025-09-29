@@ -1,24 +1,13 @@
 {
 	"name": "@coreyyy34/mini-ai-app-builder-shared",
-	"version": "1.0.18",
+	"version": "1.0.0",
 	"description": "Shared types for Mini AI App Builder",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist"
-	],
 	"scripts": {
-		"build": "tsc",
-		"prepublishOnly": "npm run build"
+		"build": "tsc"
 	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/coreyyy34/mini-ai-app-builder.git"
-	},
-	"publishConfig": {
-		"@coreyyy34:registry": "https://npm.pkg.github.com"
-	},
-	"devDependencies": {
-		"typescript": "~5.8.3"
+	"dependencies": {
+		"typescript": "^5.9.2"
 	}
 }

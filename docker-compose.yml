@@ -1,0 +1,39 @@
+services:
+    frontend:
+        build:
+            context: .
+            dockerfile: frontend/Dockerfile
+            args:
+                - VITE_API_URL=${BASE_URL}/api
+        ports:
+            - "5173:5173"
+        networks:
+            - app-network
+
+    backend:
+        build:
+            context: .
+            dockerfile: backend/Dockerfile
+        ports:
+            - "3000"
+        environment:
+            - NODE_ENV=production
+            - DATABASE_URL=mongodb://admin:password@mongodb:27017
+            - DATABASE_NAME=mini-ai-app-builder
+        networks:
+            - app-network
+
+    mongodb:
+        image: mongo:8.0.14
+        container_name: mongodb
+        ports:
+            - "27017"
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=admin
+            - MONGO_INITDB_ROOT_PASSWORD=password
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
