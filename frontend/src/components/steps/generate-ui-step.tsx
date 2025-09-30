@@ -3,6 +3,7 @@ import StepCard from "../step-card";
 import { Button } from "../ui/button";
 import { useAppBuilderStore } from "@/stores/app-builder-store";
 import { GeneratedApp } from "../generator/generated-app";
+import { PromptDisplay } from "../prompt-display";
 
 const GenerateUiStep = () => {
 	const project = useAppBuilderStore((state) => state.project);
@@ -16,6 +17,12 @@ const GenerateUiStep = () => {
 				description="Preview of your app's interface based on the requirements"
 			/>
 			<StepCard.Content>
+				<div className="pb-6">
+					<PromptDisplay
+						prompt={project?.specifications.prompt || ""}
+					/>
+				</div>
+
 				{project?.components && (
 					<GeneratedApp project={project}></GeneratedApp>
 				)}

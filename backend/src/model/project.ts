@@ -30,6 +30,7 @@ const projectsSchema = new Schema<ProjectDocument>(
 			roles: [{ type: String }],
 			features: [{ type: String }],
 			message: [{ type: String }],
+			prompt: [{ type: String }],
 		},
 		components: [baseComponentSchema],
 	},

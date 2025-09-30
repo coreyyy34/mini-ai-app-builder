@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
 import { Badge } from "../ui/badge";
 import { fetchGeneratedUi } from "@/lib/api";
+import { PromptDisplay } from "../prompt-display";
 
 const ExtractRequirementsStep = () => {
 	const loading = useAppBuilderStore((state) => state.loading);
@@ -40,6 +41,10 @@ const ExtractRequirementsStep = () => {
 				description={project?.specifications?.message}
 			/>
 			<StepCard.Content>
+				<div className="pb-6">
+					<PromptDisplay prompt={project?.specifications.prompt} />
+				</div>
+
 				{project?.specifications && (
 					<div className="space-y-6">
 						<div>

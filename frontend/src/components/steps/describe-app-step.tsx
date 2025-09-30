@@ -15,6 +15,7 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from "../ui/alert-dialog";
+import { PromptDisplay } from "../prompt-display";
 
 const DescribeAppStep = () => {
 	const description = useAppBuilderStore((state) => state.description);
@@ -91,12 +92,7 @@ const DescribeAppStep = () => {
 						</AlertDialogTitle>
 						<AlertDialogDescription asChild>
 							<div className="space-y-4 text-foreground">
-								<div className="rounded-lg bg-muted p-3">
-									<p className="text-xs font-medium text-muted-foreground mb-1.5">
-										Your input:
-									</p>
-									<p className="text-sm">{description}</p>
-								</div>
+								<PromptDisplay prompt={description} />
 
 								<p className="text-sm leading-relaxed">
 									{error}
