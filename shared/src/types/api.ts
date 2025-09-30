@@ -16,3 +16,7 @@ export interface GenerateUIRequest {
 export interface GenerateUIResponse {
 	project: Project;
 }
+
+export interface ErrorResponse {
+	error: string;
+}

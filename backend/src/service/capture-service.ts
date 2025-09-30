@@ -21,8 +21,14 @@ Based on the user's input, generate a valid JSON object with the following schem
 - The output must be valid JSON.
 - Do not format the output as a code block. Return plain text only.
 - If the user prompt is vague, make minimal, logical assumptions.
-- If the prompt is invalid or too unclear to generate any requirements, return an object containing an "error" key with a relevant message.
 - The message field must be personalized, friendly. The message must start with a simple comment on the idea the user has provided. It must NOT contain simple conversational greetings (e.g., 'Hello', 'Hi', 'Hey') or simple acknowledgments (e.g., 'Understood', 'Got it', 'Thanks'). It must contain a message prompting the user to press the 'Generate UI' button for you to create the UI.
+
+
+If any required information is unclear or missing, return a friendly message in the following JSON format explaining what details are needed, optionally giving examples to guide the user. 
+
+{
+  "error": string
+}
 
 Example 1 (Clear Input)
 User: I need an app for a restaurant. Customers can browse the menu and place an order. Staff can view orders and update their status.
@@ -40,7 +46,7 @@ Example 2 (Unclear Input)
 User: Hello, I need a new app.
 AI Output:
 {
-  "error": "The prompt is too vague to extract requirements. Please provide more detail about the application's purpose."
+  "error": "I see this is a school app, but I need a bit more info. Who will use the app, and what should they be able to do? For example, students might log in and check grades, while teachers could manage assignments."
 }
 `;
 

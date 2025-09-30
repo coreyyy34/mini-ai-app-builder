@@ -5,6 +5,16 @@ import StepCard from "../step-card";
 import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
 import { fetchRequirements } from "@/lib/api";
 import { useProjectsStore } from "@/stores/projects-store";
+import { useState } from "react";
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+} from "../ui/alert-dialog";
 
 const DescribeAppStep = () => {
 	const description = useAppBuilderStore((state) => state.description);
@@ -15,6 +25,7 @@ const DescribeAppStep = () => {
 	const setLoading = useAppBuilderStore((state) => state.setLoading);
 	const reset = useAppBuilderStore((state) => state.reset);
 	const addProject = useProjectsStore((state) => state.addProject);
+	const [error, setError] = useState("");
 
 	const handleSubmit = async () => {
 		setLoading(true);
@@ -25,6 +36,11 @@ const DescribeAppStep = () => {
 			setProject(project);
 			setStep(AppBuilderStep.ExtractRequirements);
 		} catch (error) {
+			if (error instanceof Error) {
+				setError(error.message);
+			} else {
+				setError("I was unable to capture your specification");
+			}
 		} finally {
 			setLoading(false);
 		}
@@ -53,6 +69,38 @@ const DescribeAppStep = () => {
 					Extract Requirements
 				</Button>
 			</StepCard.Footer>
+
+			<AlertDialog
+				open={!!error}
+				onOpenChange={(open) => !open && setError("")}
+			>
+				<AlertDialogContent className="max-w-lg">
+					<AlertDialogHeader>
+						<AlertDialogTitle>
+							Need More Information
+						</AlertDialogTitle>
+						<AlertDialogDescription asChild>
+							<div className="space-y-4 text-foreground">
+								<div className="rounded-lg bg-muted p-3">
+									<p className="text-xs font-medium text-muted-foreground mb-1.5">
+										Your input:
+									</p>
+									<p className="text-sm">{description}</p>
+								</div>
+
+								<p className="text-sm leading-relaxed">
+									{error}
+								</p>
+							</div>
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
+						<AlertDialogAction onClick={() => setError("")}>
+							Got it
+						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
 		</StepCard>
 	);
 };

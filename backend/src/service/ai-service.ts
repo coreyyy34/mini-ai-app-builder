@@ -1,3 +1,4 @@
+import { ApiError } from "@coreyyy34/mini-ai-app-builder-shared";
 import { GoogleGenAI } from "@google/genai";
 
 const genAI = new GoogleGenAI({});
@@ -20,7 +21,7 @@ export class AiService {
 
 		let text = response.text;
 		if (!text) {
-			return { error: "AI failed to extract requirements" };
+			throw new ApiError("Unavailable");
 		}
 
 		// sometimes the AI will return JSON with backticks even when we say not to.
@@ -31,6 +32,10 @@ export class AiService {
 
 		console.log(text);
 
-		return JSON.parse(text);
+		const parsedResponse = JSON.parse(text);
+		if ("error" in parsedResponse) {
+			throw new ApiError(parsedResponse.error);
+		}
+		return parsedResponse;
 	}
 }
