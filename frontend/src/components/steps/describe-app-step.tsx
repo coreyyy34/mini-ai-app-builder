@@ -5,7 +5,7 @@ import StepCard from "../step-card";
 import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
 import { fetchRequirements } from "@/lib/api";
 import { useProjectsStore } from "@/stores/projects-store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -26,6 +26,7 @@ const DescribeAppStep = () => {
 	const reset = useAppBuilderStore((state) => state.reset);
 	const addProject = useProjectsStore((state) => state.addProject);
 	const [error, setError] = useState("");
+	const [descriptionEmpty, setDescriptionEmpty] = useState(false);
 
 	const handleSubmit = async () => {
 		setLoading(true);
@@ -46,6 +47,10 @@ const DescribeAppStep = () => {
 		}
 	};
 
+	useEffect(() => {
+		setDescriptionEmpty(description.trim().length == 0);
+	}, [description]);
+
 	return (
 		<StepCard>
 			<StepCard.Header
@@ -59,13 +64,18 @@ const DescribeAppStep = () => {
 					onChange={(e) => setDescription(e.target.value)}
 					placeholder="I want an app to manage student courses and grades..."
 					disabled={loading}
+					aria-invalid={descriptionEmpty}
 				/>
 			</StepCard.Content>
 			<StepCard.Footer>
 				<Button variant="outline" onClick={reset} disabled={loading}>
 					Clear
 				</Button>
-				<Button onClick={handleSubmit} loading={loading}>
+				<Button
+					onClick={handleSubmit}
+					loading={loading}
+					disabled={descriptionEmpty}
+				>
 					Extract Requirements
 				</Button>
 			</StepCard.Footer>
