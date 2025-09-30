@@ -75,7 +75,7 @@ const Sidebar = () => {
 											{project.name}
 										</div>
 										{project.description && (
-											<div className="text-wrap line-clamp-2">
+											<div className="text-xs font-normal text-wrap line-clamp-2">
 												{project.description}
 											</div>
 										)}
