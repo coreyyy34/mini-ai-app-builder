@@ -32,7 +32,7 @@ const Sidebar = () => {
 	};
 
 	return (
-		<div className="w-80 border-r border-border bg-card">
+		<div className="w-80 border-r border-border bg-card overflow-y-auto">
 			<div className="p-4 border-b">
 				<div className="flex items-center justify-between">
 					<h2 className="font-semibold text flex items-center gap-2 text-neutral-600">

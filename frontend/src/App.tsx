@@ -4,11 +4,11 @@ import AppBuilder from "./components/app-builder";
 
 const App = () => {
 	return (
-		<div className="flex flex-col min-h-screen bg-background">
+		<div className="flex flex-col h-screen bg-background">
 			<Navigation />
-			<div className="flex flex-1">
+			<div className="flex flex-1 overflow-hidden">
 				<Sidebar />
-				<main className="flex-1 bg-background p-6">
+				<main className="flex-1 bg-background p-6 overflow-y-auto">
 					<div className="max-w-4xl mx-auto">
 						<div className="text-center mb-12">
 							<h1 className="text-4xl font-bold text-foreground mb-4 text-balance">
