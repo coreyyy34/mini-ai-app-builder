@@ -28,6 +28,7 @@ const projectsSchema = new Schema<ProjectDocument>(
 			entities: [{ type: String }],
 			roles: [{ type: String }],
 			features: [{ type: String }],
+			message: [{ type: String }],
 		},
 		components: [baseComponentSchema],
 	},
