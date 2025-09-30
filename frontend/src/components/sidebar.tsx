@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
 import type { ProjectId } from "@coreyyy34/mini-ai-app-builder-shared";
 import { fetchProject } from "@/lib/api";
+import { cn } from "@/lib/utils";
 
 const Sidebar = () => {
 	const { projects, loadProjects } = useProjectsStore();
@@ -46,7 +47,7 @@ const Sidebar = () => {
 					{projects.length == 0 ? (
 						<div>
 							<History className="h-8 w-8 mx-auto mb-2 opacity-50" />
-							No projects yet{" "}
+							No projects yet
 						</div>
 					) : (
 						projects.map((project) => (
@@ -57,11 +58,29 @@ const Sidebar = () => {
 										? "default"
 										: "outline"
 								}
-								className="justify-start"
+								className="h-auto py-3 px-3 justify-start text-left"
 								onClick={() => handleOpenProject(project.id)}
 							>
-								<Star />
-								{project.name}
+								<div className="flex items-start gap-3 w-full">
+									<Star
+										className={cn(
+											"h-5 w-5 mt-0.5 flex-shrink-0",
+											activeProject?.id == project.id
+												? "fill-primary-foreground"
+												: "fill-muted stroke-muted-foreground"
+										)}
+									/>
+									<div className="flex-1 min-w-0 space-y-1">
+										<div className="font-semibold text-sm leading-tight">
+											{project.name}
+										</div>
+										{project.description && (
+											<div className="text-wrap line-clamp-2">
+												{project.description}
+											</div>
+										)}
+									</div>
+								</div>
 							</Button>
 						))
 					)}
