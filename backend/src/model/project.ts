@@ -9,6 +9,7 @@ export interface ProjectDocument extends Omit<Project, "id">, Document {
 const baseComponentSchema = new Schema(
 	{
 		type: { type: String, required: true },
+		title: { type: String, required: true },
 		roles: {
 			type: [String],
 			required: true,
