@@ -71,7 +71,7 @@ const Sidebar = () => {
 										)}
 									/>
 									<div className="flex-1 min-w-0 space-y-1">
-										<div className="font-semibold text-sm leading-tight">
+										<div className="font-semibold text-sm leading-tight text-wrap">
 											{project.name}
 										</div>
 										{project.description && (
