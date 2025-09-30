@@ -26,6 +26,9 @@ const DescribeAppStep = () => {
 	const setLoading = useAppBuilderStore((state) => state.setLoading);
 	const reset = useAppBuilderStore((state) => state.reset);
 	const addProject = useProjectsStore((state) => state.addProject);
+	const setProjects = useProjectsStore((state) => state.setProjects);
+	const project = useAppBuilderStore((state) => state.project);
+	const projects = useProjectsStore((state) => state.projects);
 	const [error, setError] = useState("");
 	const [descriptionEmpty, setDescriptionEmpty] = useState(false);
 
@@ -33,9 +36,27 @@ const DescribeAppStep = () => {
 		setLoading(true);
 
 		try {
-			const project = await fetchRequirements(description);
-			addProject({ ...project.specifications, id: project.id });
-			setProject(project);
+			const newProject = await fetchRequirements(
+				description,
+				project?.id
+			);
+			const existingProject = projects.find(
+				(p) => p.id === newProject.id
+			);
+			if (existingProject) {
+				// update existing project
+				const updatedProjects = projects.map((p) =>
+					p.id === newProject.id
+						? { ...p, ...newProject.specifications }
+						: p
+				);
+				setProjects(updatedProjects);
+			} else {
+				// add new project
+				addProject({ ...newProject.specifications, id: newProject.id });
+			}
+
+			setProject(newProject);
 			setStep(AppBuilderStep.ExtractRequirements);
 		} catch (error) {
 			if (error instanceof Error) {

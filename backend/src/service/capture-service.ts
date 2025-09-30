@@ -1,5 +1,6 @@
 import {
 	Project,
+	ProjectId,
 	ProjectSpecifications,
 } from "@coreyyy34/mini-ai-app-builder-shared";
 import { AiService } from "./ai-service";
@@ -51,7 +52,8 @@ AI Output:
 `;
 
 export const captureRequirementsFromPrompt = async (
-	prompt: string
+	prompt: string,
+	id?: ProjectId
 ): Promise<Project> => {
 	const response = await AiService.generateContent(SYSTEM_PROMPT, prompt);
 	const specifications = {
@@ -59,6 +61,9 @@ export const captureRequirementsFromPrompt = async (
 		...response,
 	} as ProjectSpecifications;
 
-	const id = await ProjectsService.saveCapturedRequirements(specifications);
-	return { id, specifications };
+	const newId = await ProjectsService.saveCapturedRequirements(
+		specifications,
+		id
+	);
+	return { id: newId, specifications };
 };

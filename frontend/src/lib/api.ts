@@ -27,10 +27,13 @@ export const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
 	return await response.json();
 };
 
-export const fetchRequirements = async (prompt: string): Promise<Project> => {
+export const fetchRequirements = async (
+	prompt: string,
+	id?: ProjectId
+): Promise<Project> => {
 	const response = await apiFetch("/capture", {
 		method: "POST",
-		body: JSON.stringify({ prompt }),
+		body: JSON.stringify({ prompt, id }),
 	});
 	const { project } = response;
 	return project;

@@ -25,7 +25,6 @@ const ExtractRequirementsStep = () => {
 		try {
 			const updatedProject = await fetchGeneratedUi(project.id);
 			setProject(updatedProject);
-			console.log(updatedProject);
 			setStep(AppBuilderStep.GenerateUI);
 		} catch (error) {
 		} finally {

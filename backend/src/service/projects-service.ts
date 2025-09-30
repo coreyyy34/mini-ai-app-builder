@@ -40,11 +40,29 @@ export class ProjectsService {
 	}
 
 	static async saveCapturedRequirements(
-		specifications: ProjectSpecifications
+		specifications: ProjectSpecifications,
+		id?: ProjectId
 	): Promise<string> {
-		const model = new ProjectsModel({ specifications });
-		const savedProject = (await model.save()) as { _id: any };
-		return savedProject._id.toString();
+		if (id) {
+			const updatedProject = await ProjectsModel.findByIdAndUpdate(
+				id,
+				{
+					specifications,
+					components: [], // clear components on update
+				},
+				{ new: true, upsert: false }
+			).exec();
+
+			if (!updatedProject) {
+				throw new Error(`Project with id ${id} not found`);
+			}
+
+			return updatedProject._id.toString();
+		} else {
+			const model = new ProjectsModel({ specifications });
+			const savedProject = await model.save();
+			return savedProject._id.toString();
+		}
 	}
 
 	static async updateComponents(

@@ -5,6 +5,7 @@ import { create } from "zustand";
 interface ProjectsState {
 	projects: ProjectSummary[];
 	addProject: (project: ProjectSummary) => void;
+	setProjects: (project: ProjectSummary[]) => void;
 	removeProject: (id: string) => void;
 	loadProjects: () => void;
 }
@@ -14,6 +15,7 @@ export const useProjectsStore = create<ProjectsState>((set, get) => ({
 
 	addProject: (project: ProjectSummary) =>
 		set({ projects: [project, ...get().projects] }),
+	setProjects: (projects: ProjectSummary[]) => set({ projects }),
 	removeProject: (id) =>
 		set({ projects: get().projects.filter((p) => p.id !== id) }),
 	loadProjects: async () => {

@@ -9,10 +9,10 @@ export const captureRequirementsHandler = async (
 	req: Request,
 	res: Response
 ) => {
-	const { prompt } = req.body as CaptureSpecificationsRequest;
+	const { id, prompt } = req.body as CaptureSpecificationsRequest;
 
 	try {
-		const project = await captureRequirementsFromPrompt(prompt);
+		const project = await captureRequirementsFromPrompt(prompt, id);
 		res.status(200).json({ project });
 	} catch (error) {
 		if (error instanceof ApiError) {

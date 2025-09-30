@@ -1,5 +1,5 @@
 import { useProjectsStore } from "@/stores/projects-store";
-import { History, Star } from "lucide-react";
+import { History, Plus, Star } from "lucide-react";
 import { useEffect } from "react";
 import { Button } from "./ui/button";
 import { AppBuilderStep, useAppBuilderStore } from "@/stores/app-builder-store";
@@ -18,7 +18,7 @@ const Sidebar = () => {
 	}, []);
 
 	const handleOpenProject = async (id: ProjectId) => {
-		if (id == activeProject?.id) return;
+		// if (id == activeProject?.id) return;
 
 		const project = await fetchProject(id);
 		setActiveProject(project);
@@ -31,6 +31,11 @@ const Sidebar = () => {
 		);
 	};
 
+	const handleNewProject = () => {
+		setActiveProject(null);
+		setStep(AppBuilderStep.DescribeApp);
+	};
+
 	return (
 		<div className="w-80 border-r border-border bg-card overflow-y-auto">
 			<div className="p-4 border-b">
@@ -39,6 +44,12 @@ const Sidebar = () => {
 						<History className="h-5 w-5" />
 						Recent Projects
 					</h2>
+					<Button
+						variant="outline"
+						onClick={() => handleNewProject()}
+					>
+						<Plus /> Create
+					</Button>
 				</div>
 			</div>
 
