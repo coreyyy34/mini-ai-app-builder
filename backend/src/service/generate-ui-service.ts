@@ -1,14 +1,5 @@
 import { AiService } from "./ai-service";
-import { ProjectsModel } from "../model/project";
-import {
-	FormComponent,
-	GenerateUIRequest,
-	GenerateUIResponse,
-	Project,
-	ProjectId,
-	ProjectSpecifications,
-	TableComponent,
-} from "@coreyyy34/mini-ai-app-builder-shared";
+import { Project, ProjectId } from "@coreyyy34/mini-ai-app-builder-shared";
 import { ProjectsService } from "./projects-service";
 
 const SYSTEM_PROMPT = `
@@ -16,7 +7,7 @@ You are an Expert UI Architect. Your task is to generate a mock UI structure in 
 The UI should consist of a series of components, with each component being either a form or a table.
 
 **Input Requirements**
-Your input will be a JSON object describing the application's entities and their features. You must infer whether a FormComponent (for creating/editing a single entity) or a TableComponent (for viewing/managing a list of entities) is more appropriate for each entity.
+Your input will be a JSON object describing the application's entities and their features. You must infer whether a FormComponent (for creating/editing a single entity) or a TableComponent (for viewing/managing a list of entities) is more appropriate for each entity. You must also infer the necessary roles for each component based on typical application logic (e.g., "Create User" is for "Admin" role, "View Enrolled Courses" is for "Student"). You must use the roles provided in the input.
 
 **Output Structure**
 The final output must be a single JSON object with the following top-level structure:
@@ -50,7 +41,8 @@ Return the JSON text without any surrounding characters, including backticks, as
       "variant": "default" | "destructive" | "outline" | "secondary" // Visual style of the button
     }
     // ... additional button objects
-  ]
+  ],
+  "roles": string[] // a list of roles that can view this component
 }
 
 2. Table Component Structure - This component represents a data table for listing multiple instances of an entity. Crucially, you must include mock data in the rows array.
@@ -75,7 +67,8 @@ Return the JSON text without any surrounding characters, including backticks, as
       }
     }
     // ... at least 3 mock row objects
-  ]
+  ],
+  "roles": string[] // a list of roles that can view this component
 }
 
 **Output Constraints**
